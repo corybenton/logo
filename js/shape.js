@@ -1,6 +1,6 @@
 class Shape {
-    constructor(fillcolor, backcolor, initials) {
-        this.fillcolor = fillcolor;
+    constructor(textcolor, backcolor, initials) {
+        this.textcolor = textcolor;
         this.backcolor = backcolor;
         this.initials = initials;
     }

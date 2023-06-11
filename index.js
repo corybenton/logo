@@ -20,24 +20,25 @@ function initprompt() {
         {
             type: 'input',
             message: 'What would you like the text color to be?',
-            name: 'backgroundcolor'
+            name: 'textcolor'
         },
         {
             type: 'input',
             message: 'What would you like the background color to be?',
-            name: 'fillcolor'
+            name: 'backgroundcolor'
         },
     ])
         .then((response) => {
             if (response.name.length == 0 || response.name.length > 3) {
                 throw new Error('Input must be greater than 0 and less than 3');
             }
+
             if (response.shape == "square") {
-                return logoWrite = new Square(response.fillcolor, response.backgroundcolor, response.name).render();
+                return logoWrite = new Square(response.textcolor, response.backgroundcolor, response.name).render();
             } else if (response.shape == "triangle") {
-                return logoWrite = new Triangle(response.fillcolor, response.backgroundcolor, response.name).render();
+                return logoWrite = new Triangle(response.textcolor, response.backgroundcolor, response.name).render();
             } else {
-                return logoWrite = new Circle(response.fillcolor, response.backgroundcolor, response.name).render();
+                return logoWrite = new Circle(response.textcolor, response.backgroundcolor, response.name).render();
             }
         })
         .then((logoWrite) => {
