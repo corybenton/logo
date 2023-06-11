@@ -50,3 +50,5 @@ function initprompt() {
 }
 
 initprompt();
+
+module.exports = { initprompt };
