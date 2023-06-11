@@ -1,10 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Shape = require('./js/shape.js');
-const Circle = require('./js/shape.js');
-const Triangle = require('./js/shape.js');
-const Square = require('./js/shape.js');
-let logoWrite;
+const Circle = require('./js/circle.js');
+const Triangle = require('./js/triangle.js');
+const Square = require('./js/square.js');
 
 function initprompt() {
     inquirer.prompt([
@@ -21,32 +19,31 @@ function initprompt() {
         },
         {
             type: 'input',
-            message: 'What would you like the background color to be?',
+            message: 'What would you like the text color to be?',
             name: 'backgroundcolor'
         },
         {
             type: 'input',
-            message: 'What would you like the text color to be?',
+            message: 'What would you like the background color to be?',
             name: 'fillcolor'
         },
     ])
         .then((response) => {
-            //let newShape = new Shape(response.fillcolor, response.backgroundcolor, response.name);
-            if (response.shape == "circle") {
-                return newShape = new Circle(response.fillcolor, response.backgroundcolor, response.name);
+            if (response.name.length == 0 || response.name.length > 3) {
+                throw new Error('Input must be greater than 0 and less than 3');
+            }
+            if (response.shape == "square") {
+                return logoWrite = new Square(response.fillcolor, response.backgroundcolor, response.name).render();
             } else if (response.shape == "triangle") {
-                newShape = new Triangle(response.fillcolor, response.backgroundcolor, response.name);
+                return logoWrite = new Triangle(response.fillcolor, response.backgroundcolor, response.name).render();
             } else {
-                newShape = new Square(response.fillcolor, response.backgroundcolor, response.name);
+                return logoWrite = new Circle(response.fillcolor, response.backgroundcolor, response.name).render();
             }
         })
-        .then((newShape) => {
-            console.log(newShape);
-            console.log(newShape.fillcolor);
-            const logoWrite = newShape.render();
-            console.log(logoWrite);
+        .then((logoWrite) => {
             fs.writeFile("logo.svg", logoWrite, (err) => {
-                if (err){console.log(err);}})
+                if (err) { console.log(err); }
+            })
         }
         )
 }
